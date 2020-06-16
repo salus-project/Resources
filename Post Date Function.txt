@@ -1,0 +1,20 @@
+function findLastPost($date){  
+	$date = new DateTime($date);
+        $now = new DateTime();
+        $diff=explode(',',$date->diff($now)->format("%y,%m,%d,%h,%i,%s"));
+        if ((int)$diff[0] ==0 && (int)$diff[1] ==0 ){
+            if ((int)$diff[2]>=1 && (int)$diff[2]<=3){
+                return $diff[2]." days ago";
+            }elseif ((int)$diff[2]>=3){
+                return date_format($date,"d M Y, H:i");
+            }elseif ((int)$diff[3]>=1){
+                return $diff[3]." hours ago";
+            }elseif((int)$diff[4]>=1){
+                return $diff[4]." mins ago";
+            }else{
+                return $diff[5]." secs ago";
+            }
+        }else{
+            return date_format($date,"d M Y, H:i");
+        }
+}
