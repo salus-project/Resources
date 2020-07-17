@@ -1,0 +1,31 @@
+<?php
+    require $_SERVER['DOCUMENT_ROOT']."/confi/db_confi.php";
+    require $_SERVER['DOCUMENT_ROOT']."/confi/verify.php";
+ 
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $event_id=$_POST['event_id'];
+        $don_id=$_POST['don_id'];
+        $status=$_POST['pro_don'];
+
+        $query="UPDATE `event_".$event_id."pro_don_content` SET `pro_don` = '$status'  WHERE `don_id` = '$don_id'";
+        $query_run= mysqli_query($con,$query);
+
+    }
+?>
+
+
+<?php
+    require $_SERVER['DOCUMENT_ROOT']."/confi/db_confi.php";
+    require $_SERVER['DOCUMENT_ROOT']."/confi/verify.php";
+ 
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $don_id=$_POST['don_id'];
+        $status=$_POST['pro_don'];
+
+        $query="UPDATE `fundraising_pro_don_content` SET `pro_don` = '$status'  WHERE `don_id` = '$id'";
+        $query_run= mysqli_query($con,$query);
+
+    }
+?>
