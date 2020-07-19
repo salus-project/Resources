@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.container{
+position:relative;
+margin:0 0 0 20px;
+}
+.main{
+width:100px;
+height:100px;
+background: #bdbdbd;
+position:relative;
+}
+.side{
+	width: 6px;
+	height: 100px;
+	transform: skewY(55deg);
+	background: #555;
+    position:absolute;
+    left:100px;
+    top:5px;
+}
+.parallelogram {
+	width: 100px;
+	height: 10px;
+	transform: skew(35deg);
+	background: #555;
+    position:absolute;
+    left:3px;
+}
+.shadow{
+	width:100px;
+	height:100px;
+	background: #bdbdbd;
+	position:absolute;
+    top:15px;
+    left:-10px;
+    z-index:-1;
+    -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+  width: 100px;
+    height: 100px;
+    background-color: #ccc;
+}
+</style>
+</head>
+<body>
+
+<h2>Parallelogram CSS</h2>
+<div class=container>
+<div class='main'></div>
+<div class='side'></div>
+<div class="parallelogram"></div>
+<div class='shadow'></div>
+</div>
+
+</body>
+</html> 
