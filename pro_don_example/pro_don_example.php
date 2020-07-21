@@ -1,4 +1,6 @@
 <script src='pro_don_example.js'></script>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<link href="/css_codes/bootstrap-toggle.css" rel="stylesheet">
 <?php
     require $_SERVER['DOCUMENT_ROOT']."/confi/db_confi.php";
     session_start();
@@ -54,34 +56,75 @@
             $old_content = mysqli_fetch_all($result,MYSQLI_ASSOC);
             mysqli_free_result($result);
 
+            $add_element =  "<div class='input_sub_container'>
+                                <div class='common_div'>
+                                    <div class='common_div'>
+                                        <input type='text' name='item[]' class='text_input request_input' placeholder='item' onchange='input_set(this)'>
+                                    </div>
+                                    <div class='common_div'>
+                                        <input type='text' name='amount[]' class='text_input request_input' placeholder='amount' onchange='input_set(this)'>
+                                    </div>
+                                </div>
+                                <div class='toggle btn btn-waarning off' data-toggle='toggle' style='width: 100px; height: 15px;' onclick='click_checkbox(this)'>
+                                    <input type='checkbox' data-toggle='toggle' data-on='Helped' data-off='Not helped' data-width='100' data-height='15' data-offstyle='warning' data-onstyle='success' onchange='checkbox_change(this)'>
+                                    <div class='toggle-group'>
+                                        <label class='btn btn-success toggle-on' style='line-height: 20px;'>
+                                            Helped
+                                        </label>
+                                        <label class='btn btn-warning active toggle-off' style='line-height: 20px;'>
+                                            Not helped
+                                        </label>
+                                        <span class='toggle-handle btn btn-default'></span>
+                                    </div>
+                                </div>
+                                <div class='common_div'>
+                                    <button type='button' onclick='add_input(this)' class='add_rem_btn'>Add</button>
+                                </div>
+                                <input type='hidden' name='mark[]' value='promise'>
+                                <input type='hidden' name='update_id[]' value='0'>
+                            </div>";
         
             echo '<div class=head_label_container id="old_donation">Your Promises</div>';
                 echo "<div>For Fundraising - ".$fundraising_name."<br>Behalf of - ".$by."</div>";
                 echo '<div class="input_container">';
                     foreach($old_content as $row_req){
                         if($row_req['pro_don']=='pending'){
-                            $checcked = 'checked="checked"';
+                            $checcked = "checked";
+                            $div_class = 'btn-success';
                         }else{
                             $checcked = '';
+                            $div_class = 'btn-warning off';
                         }
-                        echo "<div class='input_sub_container'>";
-                        echo    "<input type='text' class='text_input request_input' name='item[]' value='".$row_req['item']."'>";
-                        echo    "<input type='text' class='text_input request_input' name='amount[]' value='".$row_req['amount']."'>";
-                        echo    "<button type='button' onclick='remove_input(this)' class='add_rem_btn'>Remove</button>";
-                        echo    "<input type='checkbox' onchange='checkbox_fun(this)' {$checcked}>";
-                        echo    "<input type='hidden' name='mark[]' value='{$row_req['pro_don']}'>";
-                        echo    "<input type='hidden' name='update_id[]' value='{$row_req['id']}'>";
-                        echo "</div>";
+                        echo "<div class='input_sub_container'>
+                                <div class='common_div'>
+                                    <div class='common_div'>
+                                        <input type='text' class='text_input request_input' name='item[]' value='".$row_req['item']."' onchange='input_set(this)'>
+                                    </div>
+                                    <div class='common_div'>
+                                        <input type='text' class='text_input request_input' name='amount[]' value='".$row_req['amount']."' onchange='input_set(this)'>
+                                    </div>
+                                </div>
+                                <div class='toggle btn {$div_class}' data-toggle='toggle' style='width: 100px; height: 15px;' onclick='click_checkbox(this)'>
+                                    <input type='checkbox' data-toggle='toggle' data-on='Helped' data-off='Not helped' data-width='100' data-height='15' data-offstyle='warning' data-onstyle='success' onchange='checkbox_change(this)' {$checcked}>
+                                    <div class='toggle-group'>
+                                        <label class='btn btn-success toggle-on' style='line-height: 20px;'>
+                                            Helped
+                                        </label>
+                                        <label class='btn btn-warning active toggle-off' style='line-height: 20px;'>
+                                            Not helped
+                                        </label>
+                                        <span class='toggle-handle btn btn-default'></span>
+                                    </div>
+                                </div>
+                                <div class='common_div'>
+                                    <button type='button' onclick='remove_input(this)' class='add_rem_btn'>Remove</button>
+                                </div>
+                                <input type='hidden' name='mark[]' value='{$row_req['pro_don']}'>
+                                <input type='hidden' name='update_id[]' value='{$row_req['id']}'>
+                            </div>";
                     }
             
-                    echo '<div class="input_sub_container">';
-                        echo '<input type="text" name="item[]" class="text_input request_input">';
-                        echo '<input type="text" name="amount[]" class="text_input request_input">';
-                        echo '<button type="button" onclick="add_input(this)" class="add_rem_btn">Add</button>';
-                        echo    "<input type='checkbox' onchange='checkbox_fun(this)'>";
-                        echo    "<input type='hidden' name='mark[]' value='promise'>";
-                        echo    "<input type='hidden' name='update_id[]' value='0'>";
-                    echo '</div>';
+                    echo $add_element;
                 echo '</div>';
                 echo "<textarea name='note'>".$old_note."</textarea>";
             echo '</div>';
@@ -89,3 +132,7 @@
             echo "<input id='del_detail' type='hidden' name='del' value=''>";
         echo "</form>";
     }
+?>
+<script>
+    var add_element = "<?php echo str_replace(array("\n","\r","\r\n"),'',$add_element) ?>";
+</script>
