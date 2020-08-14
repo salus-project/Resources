@@ -77,7 +77,7 @@
                         </tr>
                         <tr>
                             <td class="view_event_td">Contact number</td>
-                            <td id="column2"><?php echo $org_detail['phone_num'] ?></td>
+                            <td id="column2"><?php echo $org_detail['phone_num']!=0?$org_detail['phone_num']:"Not given"; ?></td>
                         </tr>
                     </tbody>
                 </table>
